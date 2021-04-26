@@ -1,0 +1,92 @@
+@BEClander_box_classname : .BECalender;
+@borderColor:#BDBDBD;
+@resultWidth:300px;
+@height:30px;
+@chooseBoxWidth:550px;
+
+@{BEClander_box_classname}{
+    margin: 10px;
+    width: @resultWidth;
+    position: relative;
+    .result{
+        width: @resultWidth;
+        height: @height;
+        border: 1px solid @borderColor;
+        border-radius: 5px;
+        text-align:  left;
+        line-height: 30px;
+        padding-left: 10px;
+        box-sizing: border-box;
+        position: relative;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .result span.calendar{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: @height - 2px;
+        border-left: 1px solid @borderColor;
+
+        &::before{
+            position: absolute;
+            top: 5px;
+            left: 11px;
+            font-size: 14px;
+            color: #BDBDBD;
+        }
+
+    }
+
+    .chooseBox{
+        width: @chooseBoxWidth;
+        height: 70px;
+        border: 1px solid @borderColor;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        border-radius: 5px;
+        padding: 10px 20px;
+
+        .begin{
+            float: left;
+            width: 35%;
+        }
+        .end{
+            float: left;
+            width: 35%;
+        }
+
+        .days{
+            float: left;
+            width: 30%;
+            text-align: center;
+            line-height: 70px;
+            color: orange;
+        }
+
+        @smallResultH:24px;
+        @smallResultW:180px;
+        .result{
+            width:  @smallResultW;
+            height: @smallResultH;
+
+            span.calendar{
+                width: 30px;
+                font-size: 12px;
+                height: @smallResultH - 2px;
+
+                &::before{
+                    position: absolute;
+                    top: 5px;
+                    left: 8px;
+                    font-size: 12px;
+                    color: #BDBDBD;
+                }
+
+            }
+        }
+
+    }
+}
