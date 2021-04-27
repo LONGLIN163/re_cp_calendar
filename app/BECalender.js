@@ -28,6 +28,7 @@ class BECalender extends Component{
                          end:
                          <div className="end_result result">
                             <span className="glyphicon glyphicon-calendar calendarBtn"></span>
+                            {/* <Calendar></Calendar> */}
                          </div>
                     </div>
                 </div>

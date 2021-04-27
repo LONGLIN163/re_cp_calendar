@@ -23,7 +23,7 @@ const getCurMonthDays=(year,month)=>{
 const createDateTable=(year,month)=>{
 
     var rearArr=[23,24,25,26,27,28,29,30,31];
-    var arr=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+    var curarr=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
     var hearArr=[1,2,3,4,5,6,7,8,9,10,11,13,14];
 
     var weekdayOfFirstDayOfAmonth=getWeekdayOfFirstDayOfAmonth(year,month);
@@ -32,29 +32,29 @@ const createDateTable=(year,month)=>{
     //console.log(daysOfPrevMonth)
 
     //***get the rest days of the last month
+    // ******method1*****
     for (let i = 0; i < 31-daysOfPrevMonth; i++) {
         rearArr.pop();
     }
-    //console.log(rearArr)
     rearArr=rearArr.slice(rearArr.length-weekdayOfFirstDayOfAmonth+1)
-    //console.log(rearArr.length)
+    //console.log(rearArr)
 
     //***get current month days
-    arr=arr.slice(0,getCurMonthDays(year,month));
+    curarr=curarr.slice(0,getCurMonthDays(year,month));
     //console.log(arr.length)
 
     //***get the rest days of the next month
-    hearArr=hearArr.slice(0,42-arr.length-rearArr.length)
+    hearArr=hearArr.slice(0,42-curarr.length-rearArr.length)
     //console.log(hearArr)
 
     return{
         rearArr,
-        arr,
+        curarr,
         hearArr
     }
 
 
 }
-console.log(createDateTable(2021,4))
+//console.log(createDateTable(2021,4))
 
-//export default createDateTable;
+export default createDateTable;

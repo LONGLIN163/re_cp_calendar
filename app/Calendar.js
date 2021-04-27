@@ -3,32 +3,57 @@ import { Component } from "react";
 import "../css/BECalender.less";
 import createDateTable from "./createDateTable"
 
-
-
 class Calendar extends Component{
     constructor(){
         super()
         this.state={
-            "dateArr": createDateTable()
+            year:2021,
+            month:4
         }
-      
+        console.log("hehe")
     }
 
     showDateTable(){
-        return this.state.dateArr.map((item,index)=>{
-            return <tr key={index}>
-                {item.map((i,x)=>{
-                    return <td key={x}>{i}</td>
-                })}
-            </tr>
-        })
+        console.log("xixi")
+        var {rearArr,curarr,hearArr} = createDateTable(this.state.year,this.state.month);
+        var dateArr = rearArr.concat(curarr).concat(hearArr);
+        var trs=[];
+        var tds=[];
+        //console.log(this.state.dateArr);
+        dateArr.forEach((day,index) => {
+            if(index%7==0 && index!=0){
+                trs.push(<tr key={index}>{tds}</tr>)
+                tds=[];
+            }
+            tds.push(<td key={index} className={index<rearArr.length || index>(curarr.length+rearArr.length-1) ? "gray" : ""}>{day}</td>)
+        });
+        trs.push(<tr key={5}>{tds}</tr>)
+        return (<tbody>{trs}</tbody>)
+    }
+
+    goNextMonth(){
+        console.log("huhu")
+        if(this.state.month!=12){
+            this.setState({
+                month:this.state.month+1
+            })
+        }else{
+            this.setState({
+                month:1,
+                year:this.state.year+1
+            })
+        }
     }
 
     render(){
+        console.log("haha")
         return(
-
             <div className="calendarChooser">
-                <h4>hahahah</h4>
+                <h4>
+                    <a href="">Last Month</a>
+                    {this.state.year} - {this.state.month}
+                    <a onClick={(this.goNextMonth).bind(this)}>Next Month</a>
+                </h4>
                 <table> 
                     <thead>
                         <tr>
@@ -37,9 +62,9 @@ class Calendar extends Component{
                             })}
                         </tr>
                     </thead>
-                    <tbody>
-                        {this.showDateTable()}
-                    </tbody>
+                   
+                    {this.showDateTable()}
+
                 </table>
             </div>
         )
