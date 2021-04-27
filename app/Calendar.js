@@ -2,6 +2,7 @@ import React from "react"
 import { Component } from "react";
 import "../css/BECalender.less";
 import createDateTable from "./createDateTable"
+import YearMonthPicker from "./YearMonthPicker"
 
 class Calendar extends Component{
     constructor(){
@@ -50,10 +51,13 @@ class Calendar extends Component{
         return(
             <div className="calendarChooser">
                 <h4>
-                    <a href="">Last Month</a>
+                    <a>Last Month</a>
                     {this.state.year} - {this.state.month}
                     <a onClick={(this.goNextMonth).bind(this)}>Next Month</a>
                 </h4>
+                
+                <YearMonthPicker></YearMonthPicker>
+
                 <table> 
                     <thead>
                         <tr>
