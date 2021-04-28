@@ -1,6 +1,7 @@
 import React from "react"
 import { Component } from "react";
 //import "../css/BECalender.less";
+import $ from "jquery";
 
 class YearMonthPicker extends Component{
     constructor(){
@@ -12,6 +13,15 @@ class YearMonthPicker extends Component{
         }
     }
 
+    rrBtnHandler(currentYear){
+        $(this.refs.span_container).append($(`<span >${currentYear+3}</span>`)).stop(true).animate({"left":-38},600,function () {
+            $(this).find("span").eq(0).remove();
+            $(this).css({"left":0});
+            $(this).find("span").eq(1).removeClass("cur");
+            $(this).find("span").eq(2).addClass("cur");
+        })
+    }
+
     render(){
         var currentYear=this.state.currentYear;
         return(
@@ -19,16 +29,16 @@ class YearMonthPicker extends Component{
                 <div className="inner">
                      <div className="year_panel">
                          <div className="panel_inner">
-                             <div className="spancontainer">
-                                <span>{currentYear-2}</span>
-                                <span>{currentYear-1}</span>
-                                <span ><b>{currentYear}</b></span>
+                             <div className="span_container" ref="span_container">
+                                <span >{currentYear-2}</span>
+                                <span >{currentYear-1}</span>
+                                <span className="cur">{currentYear}</span>
                                 <span >{currentYear+1}</span>
                                 <span >{currentYear+2}</span>
                              </div>
                          </div>
                          <i className="ll"></i>
-                         <i className="rr"  onClick={()=>{this.setState({currentYear:this.state.currentYear+1})}}></i>
+                         <i className="rr" onClick={()=>{this.rrBtnHandler(currentYear++)}}></i>
                      </div>
                      <div className="month_panel">
                          <div className="col">
