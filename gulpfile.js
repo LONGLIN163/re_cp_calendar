@@ -39,7 +39,7 @@ gulp.task("clean",function(){
   deleteFolder("./css")
 });
 
-gulp.task('dev', series("less",'cssconcat'));
+gulp.task('dev', series("less"));
 gulp.task('build', series("less",'cssconcat',"clean"));
 
 //gulp.watch('./less/**/*.less',series("less"))

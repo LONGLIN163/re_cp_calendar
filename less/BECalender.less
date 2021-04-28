@@ -138,7 +138,7 @@
 
        .inner{
            position: absolute;
-           width: 225px;
+           width: 240px;
            height: 225px;
            top:50%;
            left:50%;
@@ -150,10 +150,39 @@
            .year_panel{
                width: 100%;
                padding: 0 10px;
-               span{
-                   float: left;
-                   width: 20%;
+               .panel_inner{
+                   width: 100%;
+                   overflow: hidden;
+                  .spancontainer{
+                      position: relative;
+                      left: -20px;
+                      span{
+                          float: left;
+                          width: 20%;
+                          border: 1px solid rgb(199, 199, 199);
+                      }
+                  }
                }
+
+               .ll{
+                position: absolute;
+                left: 1px;
+               top: 14px;
+                width:16px;
+                height:16px;
+                background-image: url(../images/ll.png);
+                background-size: contain;
+            }
+
+            .rr{
+                position: absolute;
+                right: 1px;
+               top: 14px;
+                width:16px;
+                height:16px;
+                background-image: url(../images/rr.png);
+                background-size: contain;
+            }
            }
 
            .month_panel{
@@ -166,6 +195,12 @@
                     a {
                         display: block;
                         text-align: center;
+
+                    }
+
+                    .cur{
+                        border: 1px solid orange;
+                        background-color: gold;
                     }
                 }
             }
