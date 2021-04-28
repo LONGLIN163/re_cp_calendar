@@ -1,7 +1,7 @@
 {
-  "name": "mycounter",
+  "name": "mycalendar",
   "version": "1.0.0",
-  "description": "",
+  "description": "this is a component",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open",
@@ -16,6 +16,8 @@
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.0",
     "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^4.0.1",
     "gulp-less": "^4.0.1",
     "jquery": "^3.6.0",
     "less": "^3.13.1",
