@@ -1,7 +1,7 @@
 @BEClander_box_classname : .BECalender;
 @borderColor:#BDBDBD;
 @resultWidth:300px;
-@height:30px;
+@height:26px;
 @chooseBoxWidth:550px;
 
 @{BEClander_box_classname}{
@@ -14,7 +14,7 @@
         border: 1px solid @borderColor;
         border-radius: 5px;
         text-align:  left;
-        line-height: 30px;
+        line-height: @height - 2px;
         padding-left: 10px;
         box-sizing: border-box;
         position: relative;
@@ -41,13 +41,25 @@
 
     .chooseBox{
         width: @chooseBoxWidth;
-        height: 70px;
         border: 1px solid @borderColor;
         position: absolute;
         top: 40px;
         left: 0;
         border-radius: 5px;
-        padding: 10px 20px;
+        padding: 8px 8px;
+        box-sizing: border-box;
+        padding-top:30px;
+
+        .submitbtn{
+            position: absolute;
+            top:6px;
+            left:4px;
+        }
+        .concelbtn{
+            position: absolute;
+            top:6px;
+            left:70px;
+        }
 
         .begin{
             float: left;

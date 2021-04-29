@@ -7,16 +7,17 @@ import Calendar from "./Calendar"
 class BECalender extends Component{
     constructor(){
         super()
+        var d=new Date();
         this.state={
             
-            byear:2021,
-            bmonth:5,
-            bday:14,
+            byear: d.getFullYear(),
+            bmonth:d.getMonth()+1,
+            bday:d.getDate(),
             bshowCalendar:false,
                 
-            eyear:2023,
-            emonth:5,
-            eday:14,
+            eyear:d.getFullYear(),
+            emonth:d.getMonth()+1,
+            eday:d.getDate(),
             eshowCalendar:false 
             
         }
@@ -61,6 +62,17 @@ class BECalender extends Component{
         }
     }
 
+    dataGap(){
+
+		var date1 = new Date(this.state.byear,this.state.bmonth,this.state.bday);
+		var date2 = new Date(this.state.eyear,this.state.emonth,this.state.eday);
+		var gap = date2 - date1;
+
+		var gday = gap / 1000 / 60 / 60 / 24;
+
+		return <div>{gday}days</div>
+    }
+
     render(){
         return(
             <div className="BECalender">
@@ -69,23 +81,29 @@ class BECalender extends Component{
                     <span className="glyphicon glyphicon-calendar calendarBtn"></span>
                 </div>
                 <div className="chooseBox">
+                    <input type="button" value="confirm" className="submitbtn"/>
+                    <input type="button" value="cancel" className="concelbtn"/>
                     <div className="begin">
                          start:
-                         <div className="begin_result result" onClick={()=>{this.setState({ "bshowCalendar":!this.state.bshowCalendar })}}>
-                            {this.state.byear}-{this.state.bmonth}-{this.state.bday}
-                            <span className="glyphicon glyphicon-calendar calendarBtn"></span>
+                         <div className="begin_result result">
+                             <div onClick={()=>{this.setState({ "bshowCalendar":!this.state.bshowCalendar })}}>
+                                {this.state.byear}-{this.state.bmonth}-{this.state.bday}
+                                <span className="glyphicon glyphicon-calendar calendarBtn"></span>
+                             </div>
                             {/* <Calendar {...this.state.b} onpick={(this.onpick1).bind(this)}></Calendar> */}
                             {this.showCalendar1()}
                          </div>
                     </div>
                     <div className="days">
-                        total: <span className="month">6</span>month,<span className="day">10</span>days
+                       {this.dataGap()}
                     </div>
                     <div className="end">
                          end:
-                         <div className="end_result result" onClick={()=>{this.setState({ "eshowCalendar":!this.state.eshowCalendar })}}>
-                            {this.state.eyear}-{this.state.emonth}-{this.state.eday}
-                            <span className="glyphicon glyphicon-calendar calendarBtn"></span>
+                         <div className="end_result result">
+                             <div onClick={()=>{this.setState({ "eshowCalendar":!this.state.eshowCalendar })}}>
+                                {this.state.eyear}-{this.state.emonth}-{this.state.eday}
+                                <span className="glyphicon glyphicon-calendar calendarBtn"></span>
+                             </div>
                             {/* <Calendar {...this.state.e} onpick={(this.onpick2).bind(this)}></Calendar> */}
                             {this.showCalendar2()}
                          </div>
