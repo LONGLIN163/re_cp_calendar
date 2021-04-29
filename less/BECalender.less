@@ -112,6 +112,26 @@
       font-weight: bold;
    }
 
+   .leftBtn{
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        width:16px;
+        height:16px;
+        background-image: url(../images/ll.png);
+        background-size: contain;
+   }
+
+   .rightBtn{
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width:16px;
+        height:16px;
+        background-image: url(../images/rr.png);
+        background-size: contain;
+   }
+
    th{
        text-align: center;
    }
@@ -123,13 +143,18 @@
        font-size: 14px;
        background-color: rgb(255, 255, 255);
        text-align: center;
-   }
-   td.gray{
-       color: lightgray;
-   }
 
-   td.cur{
-       background-color: rgb(139, 175, 163);
+       &.gray{
+           color: lightgray;
+       }
+    
+       &.cur{
+           background-color: rgb(139, 175, 163);
+       }
+
+       &:hover{
+        background-color: rgb(185, 192, 190);
+    }
    }
 
    .YearMonthPicker{

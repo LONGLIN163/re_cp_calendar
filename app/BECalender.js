@@ -6,6 +6,10 @@ import Calendar from "./Calendar"
 
 class BECalender extends Component{
 
+    onpick({year,month,day}){
+       console.log(year,month,day)
+    }
+
     render(){
         return(
             <div className="BECalender">
@@ -18,7 +22,7 @@ class BECalender extends Component{
                          start:
                          <div className="begin_result result">
                             <span className="glyphicon glyphicon-calendar calendarBtn"></span>
-                            <Calendar></Calendar>
+                            <Calendar onpick={(this.onpick).bind(this)}></Calendar>
                          </div>
                     </div>
                     <div className="days">
@@ -28,7 +32,7 @@ class BECalender extends Component{
                          end:
                          <div className="end_result result">
                             <span className="glyphicon glyphicon-calendar calendarBtn"></span>
-                            {/* <Calendar></Calendar> */}
+                            <Calendar onpick={(this.onpick).bind(this)}></Calendar>
                          </div>
                     </div>
                 </div>

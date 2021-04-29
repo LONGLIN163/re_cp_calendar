@@ -1,11 +1,11 @@
 import React from "react"
 import { Component } from "react";
-//import "../css/BECalender.less";
+import $ from "jquery";
 import createDateTable from "./createDateTable"
 import YearMonthPicker from "./YearMonthPicker"
 
 class Calendar extends Component{
-    constructor(){
+    constructor({onpick}){
         super()
         this.state={
             year:2021,
@@ -24,12 +24,16 @@ class Calendar extends Component{
         //console.log(this.state.dateArr);
 
         let classname=(day,index)=>{
-            if(index<rearArr.length || index>(curarr.length+rearArr.length-1)){
-                return "gray"
-            }else if(day==this.state.day){
-                return "cur"
+            if(index<rearArr.length){
+                return "gray prev"
+            }else if(index>(curarr.length+rearArr.length-1)){
+                return "gray next"
+            }else{
+                if(day==this.state.day){
+                    return "cur"
+                }
+                return "incurmonth"
             }
-            return ""
         }
 
         dateArr.forEach((day,index) => {
@@ -38,7 +42,7 @@ class Calendar extends Component{
                 tds=[];
             }
             // tds.push(<td key={index} className={index<rearArr.length || index>(curarr.length+rearArr.length-1) ? "gray" : ""}>{day}</td>)
-            tds.push(<td key={index} className={classname(day,index)}>{day}</td>)
+            tds.push(<td key={index} data-day={day} className={classname(day,index)}>{day}</td>)
         });
         trs.push(<tr key={5}>{tds}</tr>)
         return (<tbody>{trs}</tbody>)
@@ -56,6 +60,24 @@ class Calendar extends Component{
                 year:this.state.year+1
             })
         }
+
+        this.setState({day:0})
+    }
+
+    goPrevMonth(){
+
+        if(this.state.month!=1){
+            this.setState({
+                month:this.state.month-1
+            })
+        }else{
+            this.setState({
+                month:12,
+                year:this.state.year-1
+            })
+        }
+
+        this.setState({day:0})
     }
 
     // month year select event, recieve year and month from sub component
@@ -75,6 +97,28 @@ class Calendar extends Component{
 		}
 	}
 
+    componentDidMount(){
+        var self=this;
+        //bind .prev event
+        $(this.refs.table).delegate("td.prev","click",function(){
+              self.goPrevMonth();
+        })
+        //bind .next event
+        $(this.refs.table).delegate("td.next","click",function(){
+            self.goNextMonth();
+        })
+
+        //bind .incurmonth event
+        $(this.refs.table).delegate("td.incurmonth","click",function(){
+            self.setState({
+                day:Number($(this).attr("data-day"))
+            })
+            self.props.onpick(self.state);
+        })
+        
+       
+    }
+
     render(){
 
         return(
@@ -84,10 +128,12 @@ class Calendar extends Component{
                     {this.state.year} - {this.state.month}
                     {/* <a onClick={(this.goNextMonth).bind(this)}>Next Month</a> */}
                 </h4>
+                <a className="leftBtn" onClick={(this.goPrevMonth).bind(this)}></a>
+                <a className="rightBtn" onClick={(this.goNextMonth).bind(this)}></a>
 
                 {this.showpicker()}
                 
-                <table> 
+                <table ref="table"> 
                     <thead>
                         <tr>
                             {["SUN","MON","TUE","WED","THU","FRI","SAT"].map((item,index)=>{
