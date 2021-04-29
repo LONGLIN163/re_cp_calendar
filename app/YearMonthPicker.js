@@ -1,20 +1,26 @@
 import React from "react"
 import { Component } from "react";
-//import "../css/BECalender.less";
+import PropTypes from 'prop-types';
 import $ from "jquery";
 import "../bower_components/jquery-mousewheel/jquery.mousewheel"
 
 class YearMonthPicker extends Component{
-    constructor(){
+
+    // static propTypes = {
+    //     onpick: PropTypes.func.isRequired
+    // };
+
+    constructor({onpick}){
         super()
         this.state={
             year:2021,
-            month:4,
+            month:5,
             currentYear:2021
         }
 
         this.currentYear=this.state.currentYear;
     }
+
 
     rrBtnHandler(currentYear){
         var self=this;
@@ -29,7 +35,7 @@ class YearMonthPicker extends Component{
         })
 
         // do not want to fix year fist. so when change the year, dont select month until u select one
-        $(".month_panel").find("a").removeClass("cur");
+        $(this.refs.month_panel).find("a").removeClass("cur");
         if(self.currentYear==self.state.year){
            $(".month_panel").find("a").eq(self.state.month-1).addClass("cur");
         }
@@ -38,6 +44,11 @@ class YearMonthPicker extends Component{
     }
 
     componentDidMount(){
+        $(this.refs.month_panel).find("a").removeClass("cur");
+        if(this.currentYear==this.state.year){
+           $(".month_panel").find("a").eq(this.state.month-1).addClass("cur");
+        }
+
         var self=this;
         $(this.refs.span_container).mousewheel(function(event,delta){
             //console.log(delta);
@@ -46,6 +57,15 @@ class YearMonthPicker extends Component{
             }else{
                 self.rrBtnHandler()
             }
+        })
+
+        //
+        $(this.refs.month_panel).find("a").click(function(){
+            self.setState({
+                year:self.currentYear,
+                month:Number($(this).attr("data-month"))
+            })
+            self.props.onpick(self.state);
         })
     }
 
@@ -88,22 +108,23 @@ class YearMonthPicker extends Component{
                          <i className="ll" onClick={()=>{this.llBtnHandler()}}></i>
                          <i className="rr" onClick={()=>{this.rrBtnHandler()}}></i>
                      </div>
-                     <div className="month_panel">
+                     <div className="month_panel" ref="month_panel">
                          <div className="col">
-                             <a className={this.state.year==this.currentYear && this.state.month=="1" ? "cur":""}>Jan</a>
-                             <a className={this.state.year==this.currentYear && this.state.month=="2" ? "cur":""}>Feb</a>
-                             <a className={this.state.year==this.currentYear && this.state.month=="3" ? "cur":""}>Mar</a>
-                             <a className={this.state.year==this.currentYear && this.state.month=="4" ? "cur":""}>Apr</a>
-                             <a className={this.state.year==this.currentYear && this.state.month=="5" ? "cur":""}>May</a>
-                             <a className={this.state.year==this.currentYear && this.state.month=="6" ? "cur":""}>Jun</a>
-                         </div>this.
+                             <a data-month="1">Jan</a>
+                             <a data-month="2">Feb</a>
+                             <a data-month="3">Mar</a>
+                             <a data-month="4">Apr</a>
+                             <a data-month="5">May</a>
+                             <a data-month="6">Jun</a>
+                             {/* <a className={this.state.year==this.currentYear && this.state.month=="6" ? "cur":""}>Jun</a> */}
+                         </div>
                          <div className="col">
-                             <a>Jul</a>
-                             <a>Aug</a>
-                             <a>Sept</a>
-                             <a>Oct</a>
-                             <a>Nov</a>
-                             <a>Dec</a>
+                             <a data-month="7">Jul</a>
+                             <a data-month="8">Aug</a>
+                             <a data-month="9">Sept</a>
+                             <a data-month="10">Oct</a>
+                             <a data-month="11">Nov</a>
+                             <a data-month="12">Dec</a>
                          </div>
                      </div>
                 </div>
@@ -111,5 +132,10 @@ class YearMonthPicker extends Component{
         )
     }
 }
+
+YearMonthPicker.propTypes = {
+    onpick: PropTypes.func.isRequired
+};
+
 
 export default YearMonthPicker;

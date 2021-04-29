@@ -9,13 +9,14 @@ class Calendar extends Component{
         super()
         this.state={
             year:2021,
-            month:4
+            month:4,
+            day:1,
+            showPicker : true
         }
-        console.log("hehe")
     }
 
     showDateTable(){
-        console.log("xixi")
+
         var {rearArr,curarr,hearArr} = createDateTable(this.state.year,this.state.month);
         var dateArr = rearArr.concat(curarr).concat(hearArr);
         var trs=[];
@@ -33,7 +34,7 @@ class Calendar extends Component{
     }
 
     goNextMonth(){
-        console.log("huhu")
+
         if(this.state.month!=12){
             this.setState({
                 month:this.state.month+1
@@ -46,18 +47,34 @@ class Calendar extends Component{
         }
     }
 
+    onpick({year,month}){
+       this.setState({
+            showPicker : false , 
+            year,
+            month
+       })
+    }
+
+    showpicker(){
+		if(this.state.showPicker){
+			return 	<YearMonthPicker year={this.state.year} month={this.state.month} onpick={(this.onpick).bind(this)}></YearMonthPicker>;
+		}else{
+			return "";
+		}
+	}
+
     render(){
-        console.log("haha")
+
         return(
             <div className="calendarChooser">
-                <h4>
+                <h4 onClick={()=>{this.setState({showPicker : true})}}>
                     <a>Last Month</a>
                     {this.state.year} - {this.state.month}
-                    <a onClick={(this.goNextMonth).bind(this)}>Next Month</a>
+                    {/* <a onClick={(this.goNextMonth).bind(this)}>Next Month</a> */}
                 </h4>
-                
-                <YearMonthPicker></YearMonthPicker>
 
+                {this.showpicker()}
+                
                 <table> 
                     <thead>
                         <tr>
