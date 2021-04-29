@@ -50,15 +50,10 @@ class BECalender extends Component{
            day:this.state.bday
         }
 
-        var d=new Date();
+        
         if(this.state.bshowCalendar){
-            return <Calendar {...props} onpick={(this.onpick1).bind(this)} 
-            earliest={{ //can not be early than today
-                year: d.getFullYear(),
-                month:d.getMonth()+1,
-                day:  d.getDate()
-            }}  
-            ></Calendar>
+            //******becarefull those two props r different***** */
+            return <Calendar {...props} {...this.props} onpick={(this.onpick1).bind(this)} ></Calendar>
         }
     }
 
@@ -69,13 +64,7 @@ class BECalender extends Component{
             day:this.state.eday 
          }
         if(this.state.eshowCalendar){
-            return <Calendar {...props} onpick={(this.onpick2).bind(this)} 
-            latest={{
-                year: 2021,
-                month:5,
-                day:  5
-            }}
-            ></Calendar>
+            return <Calendar {...props} onpick={(this.onpick2).bind(this)} ></Calendar>
         }
     }
 
@@ -108,7 +97,7 @@ class BECalender extends Component{
 
     // shouldComponentUpdate(nextProps, nextState){
     componentWillUpdate(props, state){
-        console.log("state",state)
+        //console.log("state",state)
         this.props.onpick(
         this.state.byear,
         this.state.bmonth,

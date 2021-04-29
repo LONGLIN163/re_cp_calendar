@@ -26,6 +26,7 @@ class Calendar extends Component{
 
         let classname=(day,index)=>{
 
+            //console.log(this.props)
             var theday=new Date(this.state.year,this.state.month,day);
             //console.log(this.props.earliest)
             if(this.props.earliest){
