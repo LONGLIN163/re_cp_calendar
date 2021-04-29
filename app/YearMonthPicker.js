@@ -107,9 +107,6 @@ class YearMonthPicker extends Component{
            $(".month_panel").find("a").eq(self.state.month-1).addClass("cur");
         }
         //console.log(self.currentYear,self.state.year);
-
-
-
         
 
     }

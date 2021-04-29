@@ -3,15 +3,16 @@ import { Component } from "react";
 import $ from "jquery";
 import createDateTable from "./createDateTable"
 import YearMonthPicker from "./YearMonthPicker"
+import "../bower_components/jquery-mousewheel/jquery.mousewheel"
 
 class Calendar extends Component{
-    constructor({onpick}){
+    constructor({onpick,year,month,day}){
         super()
         this.state={
-            year:2021,
-            month:4,
-            day:1,
-            showPicker : true
+            year,
+            month,
+            day,
+            showPicker : false
         }
     }
 
@@ -30,7 +31,7 @@ class Calendar extends Component{
                 return "gray next"
             }else{
                 if(day==this.state.day){
-                    return "cur"
+                    return "incurmonth cur"
                 }
                 return "incurmonth"
             }
@@ -113,10 +114,18 @@ class Calendar extends Component{
             self.setState({
                 day:Number($(this).attr("data-day"))
             })
+            //sent back to BE...
             self.props.onpick(self.state);
         })
-        
-       
+
+        $(this.refs.table).mousewheel(function(event,delta){
+            //console.log(delta);
+            if(delta>0){
+               self.goPrevMonth()
+            }else{
+                self.goNextMonth()
+            }
+        })
     }
 
     render(){
