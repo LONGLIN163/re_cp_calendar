@@ -18,7 +18,9 @@ class BECalender extends Component{
             eyear:d.getFullYear(),
             emonth:d.getMonth()+1,
             eday:d.getDate(),
-            eshowCalendar:false 
+            eshowCalendar:false, 
+
+            showChooseBox:false
             
         }
     }
@@ -73,16 +75,10 @@ class BECalender extends Component{
 		return <div>{gday}days</div>
     }
 
-    render(){
-        return(
-            <div className="BECalender">
-                <div className="result">
-                    haha
-                    <span className="glyphicon glyphicon-calendar calendarBtn"></span>
-                </div>
-                <div className="chooseBox">
-                    <input type="button" value="confirm" className="submitbtn"/>
-                    <input type="button" value="cancel" className="concelbtn"/>
+    showChooseBox(){
+       return <div className="chooseBox">
+                    <input type="button" value="confirm" className="submitbtn" onClick={()=>{this.setState({ showChooseBox:false })}}/>
+                    {/* <input type="button" value="cancel" className="concelbtn"/> */}
                     <div className="begin">
                          start:
                          <div className="begin_result result">
@@ -101,7 +97,7 @@ class BECalender extends Component{
                          end:
                          <div className="end_result result">
                              <div onClick={()=>{this.setState({ "eshowCalendar":!this.state.eshowCalendar })}}>
-                                {this.state.eyear}-{this.state.emonth}-{this.state.eday}
+                              {this.state.eyear}-{this.state.emonth}-{this.state.eday}
                                 <span className="glyphicon glyphicon-calendar calendarBtn"></span>
                              </div>
                             {/* <Calendar {...this.state.e} onpick={(this.onpick2).bind(this)}></Calendar> */}
@@ -110,6 +106,17 @@ class BECalender extends Component{
                     </div>
                 </div>
 
+    }
+
+    render(){
+        return(
+            <div className="BECalender">
+                <div className="result" onClick={()=>{this.setState({ showChooseBox:!this.state.showChooseBox })}}>
+                {this.state.byear}/{this.state.bmonth}/{this.state.bday}-{this.state.eyear}/{this.state.emonth}/{this.state.eday}
+                    <span className="glyphicon glyphicon-calendar calendarBtn"></span>
+                </div>
+                
+                {this.state.showChooseBox && this.showChooseBox()}
 
             </div>
         )
