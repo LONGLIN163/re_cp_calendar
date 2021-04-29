@@ -25,6 +25,22 @@ class Calendar extends Component{
         //console.log(this.state.dateArr);
 
         let classname=(day,index)=>{
+
+            var theday=new Date(this.state.year,this.state.month,day);
+            //console.log(this.props.earliest)
+            if(this.props.earliest){
+                var earliestdate= new Date(this.props.earliest.year,this.props.earliest.month,this.props.earliest.day);
+                if((theday-earliestdate)<0){
+                    return "gray earliestinvalid"
+                }
+            }
+            if(this.props.latest){
+                var latestdate= new Date(this.props.latest.year,this.props.latest.month,this.props.latest.day);
+                if((theday-latestdate)>0){
+                    return "gray latestinvalid"
+                }
+            }
+            
             if(index<rearArr.length){
                 return "gray prev"
             }else if(index>(curarr.length+rearArr.length-1)){

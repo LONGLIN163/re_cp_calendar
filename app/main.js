@@ -4,6 +4,8 @@ import BECalender from "./BECalender"
 //import '../bower_components/jquery/dist/jquery.min.js'
 
 render(
-    <BECalender/>,
+    <div>
+        <BECalender onpick={(by,bm,bd,ey,em,ed)=>{}}/>
+    </div>,
     document.getElementById("container")
 )

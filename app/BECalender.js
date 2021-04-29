@@ -2,6 +2,7 @@ import React from "react"
 import { Component } from "react";
 //import "../css/BECalender.less"
 import Calendar from "./Calendar"
+import $ from "jquery";
 
 
 class BECalender extends Component{
@@ -12,7 +13,7 @@ class BECalender extends Component{
             
             byear: d.getFullYear(),
             bmonth:d.getMonth()+1,
-            bday:d.getDate(),
+            bday:  d.getDate(),
             bshowCalendar:false,
                 
             eyear:d.getFullYear(),
@@ -48,8 +49,16 @@ class BECalender extends Component{
            month:this.state.bmonth,
            day:this.state.bday
         }
+
+        var d=new Date();
         if(this.state.bshowCalendar){
-            return <Calendar {...props} onpick={(this.onpick1).bind(this)}></Calendar>
+            return <Calendar {...props} onpick={(this.onpick1).bind(this)} 
+            earliest={{ //can not be early than today
+                year: d.getFullYear(),
+                month:d.getMonth()+1,
+                day:  d.getDate()
+            }}  
+            ></Calendar>
         }
     }
 
@@ -57,10 +66,16 @@ class BECalender extends Component{
         var props={
             year:this.state.eyear,
             month:this.state.emonth,
-            day:this.state.eday
+            day:this.state.eday 
          }
         if(this.state.eshowCalendar){
-            return <Calendar {...props} onpick={(this.onpick2).bind(this)}></Calendar>
+            return <Calendar {...props} onpick={(this.onpick2).bind(this)} 
+            latest={{
+                year: 2021,
+                month:5,
+                day:  5
+            }}
+            ></Calendar>
         }
     }
 
@@ -74,6 +89,35 @@ class BECalender extends Component{
 
 		return <div>{gday}days</div>
     }
+
+    componentDidMount(){
+        var self=this;
+
+        $("html").click(function(e){
+            var $o=$(self.refs.BECalender);
+            //console.log($(e.target).parents($o).length)
+            if($(e.target).parents($o).length==0){ // means click outside of this element
+               self.setState({ // when click outside, close all
+                   showChooseBox:false,
+                   bshowCalendar:false,
+                   eshowCalendar:false,
+               })
+            }
+        })
+    }
+
+    // shouldComponentUpdate(nextProps, nextState){
+    componentWillUpdate(props, state){
+        console.log("state",state)
+        this.props.onpick(
+        this.state.byear,
+        this.state.bmonth,
+        this.state.bday,
+        this.state.eyear,
+        this.state.emonth,
+        this.state.eday)
+
+     }
 
     showChooseBox(){
        return <div className="chooseBox">
@@ -110,7 +154,7 @@ class BECalender extends Component{
 
     render(){
         return(
-            <div className="BECalender">
+            <div className="BECalender" ref="BECalender">
                 <div className="result" onClick={()=>{this.setState({ showChooseBox:!this.state.showChooseBox })}}>
                 {this.state.byear}/{this.state.bmonth}/{this.state.bday}-{this.state.eyear}/{this.state.emonth}/{this.state.eday}
                     <span className="glyphicon glyphicon-calendar calendarBtn"></span>
