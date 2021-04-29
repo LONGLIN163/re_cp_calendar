@@ -10,14 +10,15 @@ class YearMonthPicker extends Component{
     //     onpick: PropTypes.func.isRequired
     // };
 
-    constructor({onpick}){
+    constructor({onpick,year,month}){
         super()
         this.state={
-            year:2021,
-            month:5,
+            year:year,
+            month:month,
             currentYear:2021
         }
 
+        console.log({onpick,year,month})
         this.currentYear=this.state.currentYear;
     }
 
@@ -59,7 +60,7 @@ class YearMonthPicker extends Component{
             }
         })
 
-        //
+        // month click event(a)
         $(this.refs.month_panel).find("a").click(function(){
             self.setState({
                 year:self.currentYear,
@@ -67,6 +68,26 @@ class YearMonthPicker extends Component{
             })
             self.props.onpick(self.state);
         })
+
+        // year click event(a)
+        $(this.refs.span_container).delegate("span","click",function(event){
+			event.preventDefault();
+			if($(this).index() > 2){
+				let a = $(this).index() - 2;
+				while(a){
+					a--;
+					self.rrBtnHandler();
+				}
+			}else if($(this).index() < 2){
+				let a =  2 - $(this).index();
+				while(a){
+					a--;
+					self.llBtnHandler();
+				}
+			}
+			return false;
+		});
+
     }
 
     llBtnHandler(currentYear){
@@ -85,8 +106,11 @@ class YearMonthPicker extends Component{
         if(self.currentYear==self.state.year){
            $(".month_panel").find("a").eq(self.state.month-1).addClass("cur");
         }
+        //console.log(self.currentYear,self.state.year);
 
-        console.log(self.currentYear,self.state.year);
+
+
+        
 
     }
 
@@ -134,8 +158,10 @@ class YearMonthPicker extends Component{
 }
 
 YearMonthPicker.propTypes = {
-    onpick: PropTypes.func.isRequired
+    onpick: PropTypes.func.isRequired,
+    year: PropTypes.number.isRequired,
+    month: PropTypes.number.isRequired,
 };
-
+ 
 
 export default YearMonthPicker;

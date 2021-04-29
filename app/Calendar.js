@@ -22,12 +22,23 @@ class Calendar extends Component{
         var trs=[];
         var tds=[];
         //console.log(this.state.dateArr);
+
+        let classname=(day,index)=>{
+            if(index<rearArr.length || index>(curarr.length+rearArr.length-1)){
+                return "gray"
+            }else if(day==this.state.day){
+                return "cur"
+            }
+            return ""
+        }
+
         dateArr.forEach((day,index) => {
             if(index%7==0 && index!=0){
                 trs.push(<tr key={index}>{tds}</tr>)
                 tds=[];
             }
-            tds.push(<td key={index} className={index<rearArr.length || index>(curarr.length+rearArr.length-1) ? "gray" : ""}>{day}</td>)
+            // tds.push(<td key={index} className={index<rearArr.length || index>(curarr.length+rearArr.length-1) ? "gray" : ""}>{day}</td>)
+            tds.push(<td key={index} className={classname(day,index)}>{day}</td>)
         });
         trs.push(<tr key={5}>{tds}</tr>)
         return (<tbody>{trs}</tbody>)
@@ -47,6 +58,7 @@ class Calendar extends Component{
         }
     }
 
+    // month year select event, recieve year and month from sub component
     onpick({year,month}){
        this.setState({
             showPicker : false , 
